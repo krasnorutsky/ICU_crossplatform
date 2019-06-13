@@ -27,5 +27,6 @@ fi
 
 sh ./download_icu.sh "REPLACE AR AND RANLIB"
 sh ./build_host.sh
+sh ./copy_header_files.sh
 sh ./download_icu.sh
 sh ./android_build_all.sh
