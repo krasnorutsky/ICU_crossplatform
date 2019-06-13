@@ -1,6 +1,6 @@
 //
 //  main.m
-//  MakefilePatcher
+//  CreateJoinedLib
 //
 //  Created by Mikhail Krasnorutsky on 1/06/2019.
 //  Copyright © 2019 Mikhail Krasnorutskiy. All rights reserved.
@@ -14,7 +14,7 @@ NSString* prependCompilerPath(NSString* line)
     
     if (r == NSNotFound)
     {
-        return line;
+        return nil;
     }
     
     NSString* abbr = [line substringToIndex:r];
@@ -42,8 +42,19 @@ int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
-        //@"/Users/misha/Downloads/ios_ios/icu-ios/build-x86-linux-android/output.txt";
-        NSString* outfileName = [NSString stringWithUTF8String:argv[1]];
+        NSString* outfileName = nil;//@"/Users/misha/Downloads/ios_ios/icu-ios/build-x86-linux-android/output.txt";
+        
+        if (argc < 2 ||
+            !argv[1] ||
+            !(outfileName = [NSString stringWithUTF8String:argv[1]]))
+        {
+            NSLog(@"Usage: CreateJoinedLib path_to_output.txt");
+            
+            return 1;
+        }
+        
+        NSLog(@"CreateJoinedLib utility will now insert ELF object files from i18n library into the existing libicuuc.so linking command. So we want to generate a script to create a new shared library libicu.so, which is, in fact, just a sum of libicuuc.so and libicui18n.so .");
+        
         NSString* mfContent = [NSString stringWithContentsOfFile:outfileName encoding:NSUTF8StringEncoding error:nil];
         
         NSString* icuUcLine = nil;
@@ -68,41 +79,67 @@ int main(int argc, const char * argv[])
             }
         }
         
-        if (!icuUcLine ||
-            !icuI18nLine)
+        if (!icuUcLine)
         {
-            return 1;
+            NSLog(@"Error: icu uc lib linking command not found.");
+            
+            return 2;
+        }
+        
+        if (!icuI18nLine)
+        {
+            NSLog(@"Error: icu i18n lib linking command found.");
+            
+            return 3;
         }
         
         NSUInteger r = [icuUcLine rangeOfString:@".o " options:NSBackwardsSearch].location;
         
         if (r == NSNotFound)
         {
-            return 2;
+            NSLog(@"Error: no object files (*.o) found in the icu uc lib linking command");
+            
+            return 4;
         }
         
         r += @".o ".length;
         
-        NSArray* newObjects = extractObjectFiles(icuI18nLine, @"./../i18n");
+        NSLog(@"Insertion position found in the icu uc lib linking command:\n%@", [icuUcLine stringByReplacingCharactersInRange:NSMakeRange(r, 0) withString:@"<<<< i18n object files will be inserted here >>>>"]);
         
+        NSArray* newObjects = extractObjectFiles(icuI18nLine, @"./../i18n");
         if (!newObjects.count)
         {
-            return 3;
+            NSLog(@"Error: no object files (*.o) found in the icu i18n lib linking command");
+            
+            return 5;
         }
+
+        NSLog(@"%d files will be inserted: %@", (int)newObjects.count, [newObjects componentsJoinedByString:@" "]);
         
         NSString* toBeInserted = [[newObjects componentsJoinedByString:@" "]stringByAppendingString:@" "];
         icuUcLine = [icuUcLine stringByReplacingCharactersInRange:NSMakeRange(r, 0) withString:toBeInserted];
         icuUcLine = [icuUcLine stringByReplacingOccurrencesOfString:@"libicuuc" withString:@"libicu"];
         icuUcLine = [icuUcLine stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
         icuUcLine = prependCompilerPath(icuUcLine);
+        if (!icuUcLine)
+        {
+            NSLog(@"Error: can`t find clang compiler call in the icu uc lib linking command.");
+            
+            return 6;
+        }
         
         icuUcLine = [@"cd \"$( dirname \"${BASH_SOURCE[0]}\" )\"\nmkdir lib\ncd common\n" stringByAppendingString:icuUcLine];
         
         NSString* fName = [[outfileName stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"build_libicu.sh"];
         if (![icuUcLine writeToFile:fName atomically:YES encoding:NSUTF8StringEncoding error:nil])
         {
-            return 4;
+            NSLog(@"Error: can`t save the libicu.so build script to \"%@\"", fName);
+            
+            return 7;
         }
+        
+        NSLog(@"Success.");
         
         return 0;
     }

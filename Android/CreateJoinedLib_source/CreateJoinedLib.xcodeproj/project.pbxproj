@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C64B483022A0EDC3004E0B13 /* MakefilePatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MakefilePatcher; sourceTree = BUILT_PRODUCTS_DIR; };
+		C64B483022A0EDC3004E0B13 /* CreateJoinedLib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CreateJoinedLib; sourceTree = BUILT_PRODUCTS_DIR; };
 		C64B483322A0EDC3004E0B13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,7 +41,7 @@
 		C64B482722A0EDC3004E0B13 = {
 			isa = PBXGroup;
 			children = (
-				C64B483222A0EDC3004E0B13 /* MakefilePatcher */,
+				C64B483222A0EDC3004E0B13 /* CreateJoinedLib */,
 				C64B483122A0EDC3004E0B13 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,25 +49,25 @@
 		C64B483122A0EDC3004E0B13 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C64B483022A0EDC3004E0B13 /* MakefilePatcher */,
+				C64B483022A0EDC3004E0B13 /* CreateJoinedLib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C64B483222A0EDC3004E0B13 /* MakefilePatcher */ = {
+		C64B483222A0EDC3004E0B13 /* CreateJoinedLib */ = {
 			isa = PBXGroup;
 			children = (
 				C64B483322A0EDC3004E0B13 /* main.m */,
 			);
-			path = MakefilePatcher;
+			path = CreateJoinedLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C64B482F22A0EDC3004E0B13 /* MakefilePatcher */ = {
+		C64B482F22A0EDC3004E0B13 /* CreateJoinedLib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C64B483722A0EDC3004E0B13 /* Build configuration list for PBXNativeTarget "MakefilePatcher" */;
+			buildConfigurationList = C64B483722A0EDC3004E0B13 /* Build configuration list for PBXNativeTarget "CreateJoinedLib" */;
 			buildPhases = (
 				C64B482C22A0EDC3004E0B13 /* Sources */,
 				C64B482D22A0EDC3004E0B13 /* Frameworks */,
@@ -77,9 +77,9 @@
 			);
 			dependencies = (
 			);
-			name = MakefilePatcher;
-			productName = MakefilePatcher;
-			productReference = C64B483022A0EDC3004E0B13 /* MakefilePatcher */;
+			name = CreateJoinedLib;
+			productName = CreateJoinedLib;
+			productReference = C64B483022A0EDC3004E0B13 /* CreateJoinedLib */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -96,7 +96,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C64B482B22A0EDC3004E0B13 /* Build configuration list for PBXProject "MakefilePatcher" */;
+			buildConfigurationList = C64B482B22A0EDC3004E0B13 /* Build configuration list for PBXProject "CreateJoinedLib" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -108,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C64B482F22A0EDC3004E0B13 /* MakefilePatcher */,
+				C64B482F22A0EDC3004E0B13 /* CreateJoinedLib */,
 			);
 		};
 /* End PBXProject section */
@@ -257,7 +257,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C64B482B22A0EDC3004E0B13 /* Build configuration list for PBXProject "MakefilePatcher" */ = {
+		C64B482B22A0EDC3004E0B13 /* Build configuration list for PBXProject "CreateJoinedLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C64B483522A0EDC3004E0B13 /* Debug */,
@@ -266,7 +266,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C64B483722A0EDC3004E0B13 /* Build configuration list for PBXNativeTarget "MakefilePatcher" */ = {
+		C64B483722A0EDC3004E0B13 /* Build configuration list for PBXNativeTarget "CreateJoinedLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C64B483822A0EDC3004E0B13 /* Debug */,
