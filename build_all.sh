@@ -12,4 +12,4 @@ cp -R ./macOS/libs-macOS/* ./build/libs-macOS
 sh ./Android/build.sh
 mkdir ./build/libs-android
 cp -R ./Android/libs-android/* ./build/libs-android
-cp -R ./ICUTest ./build
+cp -R ./Android/ICUTest ./build
