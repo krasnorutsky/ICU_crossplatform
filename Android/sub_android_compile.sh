@@ -27,7 +27,7 @@ rm -rf $BUILDPATH
 mkdir $BUILDPATH
 cd $BUILDPATH
 
-CROSS_PATH=$(pwd)/../build-host
+CROSS_PATH=$(pwd)/../../macOS/build
 
 echo "Toolchain name:"
 echo $CROSS_PATH
@@ -35,7 +35,6 @@ echo $CROSS_PATH
 ~/Downloads/icu/source/configure --host=$TOOLCHAIN_NAME -with-cross-build=$CROSS_PATH  --enable-extras=yes --enable-strict=no --verbose CXXFLAGS='--std=c++11 -fPIC -frtti' LDFLAGS='-fPIC -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig'
 #-fPIC -frtti' --enable-dyload=no
 #--enable-static --enable-shared=no
-
 
 gnumake VERBOSE=1 | tee output.txt
 
@@ -48,4 +47,4 @@ mv $BUILDPATH/lib ./libs-android/$TOOLCHAIN
 rm -rf $BUILDPATH
 rm -rf $TOOLCHAIN
 
-sh ./fix_android_names.sh ./libs-android/$TOOLCHAIN 64 64.2
+sh ./fix_android_names.sh ./libs-android/$TOOLCHAIN

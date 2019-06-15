@@ -3,14 +3,14 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 brew --version
 
 if [ $? != 0 ]; then
-echo "Homebrew is not installed. It is necessary to proceed. Install it and try again."
+echo "Homebrew is not installed. It is necessary to build android libs. Install it and try again."
 exit 1
 fi
 
 patchelf --version
 
 if [ $? != 0 ]; then
-echo "patchelf is not installed. It is necessary to proceed. Install it via Homebrew and try again."
+echo "patchelf is not installed. It is necessary to build android libs. Install it via Homebrew and try again."
 exit 2
 fi
 
@@ -22,11 +22,10 @@ echo "Android NDK not found. It must be installed to the default location: ~/Lib
 exit 3
 fi
 
-#TODO move to download_icu.sh
-/bin/cp -f -R -p ./myar.sh ~/Downloads
+sh ./../copy_header_files.sh Android
 
-sh ./download_icu.sh "REPLACE AR AND RANLIB"
-sh ./build_host.sh
-sh ./copy_header_files.sh
-sh ./download_icu.sh
-sh ./android_build_all.sh
+NDK=~/Library/Android/sdk/ndk-bundle
+sh ./sub_android_compile.sh x86-linux-android $NDK
+sh ./sub_android_compile.sh x86_64-linux-android $NDK
+sh ./sub_android_compile.sh arm-linux-androideabi $NDK
+sh ./sub_android_compile.sh aarch64-linux-android $NDK
