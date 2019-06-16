@@ -6,7 +6,16 @@ HOST=$2
 BUILDPATH=build-$ARCH
 
 DEVELOPER="$(xcode-select --print-path)"
-SDKROOT="$(xcodebuild -version -sdk iphoneos | grep -E '^Path' | sed 's/Path: //')"
+
+if [ $ARCH = x86_64 ]; then
+  SDKROOT="$(xcodebuild -version -sdk iphonesimulator | grep -E '^Path' | sed 's/Path: //')"
+else
+  if [ $ARCH = i386 ]; then
+    SDKROOT="$(xcodebuild -version -sdk iphonesimulator | grep -E '^Path' | sed 's/Path: //')"
+  else
+    SDKROOT="$(xcodebuild -version -sdk iphoneos | grep -E '^Path' | sed 's/Path: //')"
+  fi
+fi
 
 ICU_PATH="~/Downloads/icu"
 ICU_FLAGS="-I$ICU_PATH/source/common/ -I$ICU_PATH/source/tools/tzcode/ "

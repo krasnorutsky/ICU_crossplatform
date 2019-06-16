@@ -13,3 +13,8 @@ sh ./Android/build.sh
 mkdir ./build/libs-android
 cp -R ./Android/libs-android/* ./build/libs-android
 cp -R ./Android/ICUTest ./build
+
+sh ./Android/build.sh
+mkdir ./build/libs-iOS
+cp -R ./iOS/libs-iOS/* ./build/libs-iOS
+cp -R ./iOS/ICUTestIOS ./build

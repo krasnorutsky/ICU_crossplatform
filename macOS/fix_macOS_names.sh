@@ -23,7 +23,7 @@ for l in *; do
         if [ -f $dep_idt ]; then
           if [ $dep != $dep_idt ]; then
             echo "Change dependancy name $dep -> $dep_idt in $l"
-            install_name_tool -change $dep $dep_idt $l
+            install_name_tool -change $dep @rpath/$dep_idt $l
           fi
         fi
       done
@@ -65,3 +65,9 @@ for l in *; do
     echo "Remove symlink $l"
   fi
 done
+
+install_name_tool -id @rpath/libicudata.dylib libicudata.dylib
+install_name_tool -id @rpath/libicui18n.dylib libicui18n.dylib
+install_name_tool -id @rpath/libicuio.dylib libicuio.dylib
+install_name_tool -id @rpath/libicutu.dylib libicutu.dylib
+install_name_tool -id @rpath/libicuuc.dylib libicuuc.dylib
